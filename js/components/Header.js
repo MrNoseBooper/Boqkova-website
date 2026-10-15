@@ -7,8 +7,13 @@ class Header extends Component {
   }
 
   render() {
+    // An item with "href" links to another page (e.g. the language switch); otherwise it scrolls to a section.
     const links = this.navItems.map((item) =>
-      this.el("a", { className: "nav__link", text: item.label, attrs: { href: `#${item.target}` } })
+      this.el("a", {
+        className: item.href ? "nav__link nav__link--switch" : "nav__link",
+        text: item.label,
+        attrs: { href: item.href || `#${item.target}` },
+      })
     );
 
     return this.el("header", { className: "header" }, [

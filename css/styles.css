@@ -17,7 +17,7 @@
 
   /* Bricolage has no Cyrillic, so any Russian text in headings falls back to Golos Text (also used in the pack images). */
   --font-display: "Bricolage Grotesque", "Golos Text", "Arial Black", system-ui, sans-serif;
-  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "DM Sans", "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
   --max-width: 1120px;
   color-scheme: light;
 }
@@ -704,5 +704,165 @@ a {
 
   .section {
     padding: 52px 0;
+  }
+}
+
+/* ---------- Courses: subheadings ---------- */
+.section__subheading {
+  margin: 0 0 24px;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.pack-grid + .section__subheading,
+.pack-grid + .course-grid {
+  margin-top: 64px;
+}
+
+/* ---------- Language switch in the menu ---------- */
+.nav__link--switch {
+  border-color: var(--ink);
+  background: var(--green);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.nav__link--switch:hover {
+  background: var(--green);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+/* ---------- Intro page (language chooser) ---------- */
+.page-intro #app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-intro .footer {
+  margin-top: 0;
+}
+
+.intro {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-block: 56px;
+}
+
+.intro-banner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 56px;
+  align-items: center;
+  width: 100%;
+  padding: 48px;
+  border: var(--border);
+  border-radius: calc(var(--radius) * 1.5);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.intro-banner__media .hero__avatar {
+  width: 300px;
+}
+
+.intro-banner__brand {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.intro-banner .hero__lead {
+  max-width: none;
+  margin-bottom: 32px;
+}
+
+.intro-banner__choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.choice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 22px 64px 24px 24px;
+  border: var(--border);
+  border-radius: var(--radius);
+  background: var(--choice-color);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.choice:hover {
+  transform: translate(-3px, -3px) rotate(-1deg);
+  box-shadow: var(--shadow-lg);
+}
+
+.choice:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.choice:focus-visible {
+  outline: 3px dashed var(--ink);
+  outline-offset: 4px;
+}
+
+.choice__tag {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.choice__label {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.choice__sub {
+  font-weight: 600;
+}
+
+.choice__arrow {
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  transition: transform 0.12s ease;
+}
+
+.choice:hover .choice__arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 880px) {
+  .intro-banner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 28px 24px 32px;
+  }
+
+  .intro-banner__media .hero__avatar {
+    width: 210px;
   }
 }

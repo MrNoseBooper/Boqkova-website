@@ -20,7 +20,7 @@
 <body>
 <main>
     <h1>Pack banner maker</h1>
-    <p>Makes a 1920×1080 banner in the same style as the pack images (Golos Text 900, black text). Type the word, pick the colour, then download and save it into <code>assets/images/packs/</code>.</p>
+    <p>Makes a 1920×1080 banner in the same style as the pack images (Golos Text 900, black text). Type the word, pick the colour, then download and save it into <code>assets/images/packs/russian/</code> or <code>assets/images/packs/english/</code>. Long names? Put a <code>|</code> where the second line should start, e.g. <code>Grammar|glow up</code>.</p>
     <form id="form">
         <label>Text <input type="text" id="text" value="База"></label>
         <label>Colour <input type="color" id="color" value="#fe98c0"></label>
@@ -38,21 +38,30 @@
             this.left = 150;
         }
 
+        /** Draws the text; a "|" starts a second line, e.g. "Grammar|glow up". */
         draw(text, color) {
             const { ctx, canvas } = this;
+            const lines = text.split("|").map((line) => line.trim());
+            const lineHeight = 0.92;
             ctx.fillStyle = color;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            let size = this.maxSize;
+            let size = this.maxSize + 5;
             do {
+                size -= 5;
                 ctx.font = `900 ${size}px "Golos Text"`;
                 ctx.letterSpacing = `${-0.05 * size}px`;
-                size -= 5;
-            } while (ctx.measureText(text).width > this.maxWidth && size > 100);
+            } while (
+                (Math.max(...lines.map((line) => ctx.measureText(line).width)) > this.maxWidth ||
+                    lines.length * size * lineHeight > 900) &&
+                size > 100
+            );
 
             ctx.fillStyle = "#0d0d0d";
             ctx.textBaseline = "middle";
-            ctx.fillText(text, this.left, canvas.height * 0.47);
+            const step = size * lineHeight;
+            const firstY = canvas.height * 0.47 - ((lines.length - 1) * step) / 2;
+            lines.forEach((line, i) => ctx.fillText(line, this.left, firstY + i * step));
         }
 
         download(fileName) {

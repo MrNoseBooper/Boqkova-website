@@ -1,21 +1,22 @@
 /** Full description of a pack, shown inside the Modal. */
 class PackDetail extends Component {
-  constructor(pack, lessonInfo) {
+  constructor(pack, lessonInfo, ui) {
     super();
     this.pack = pack;
     this.lessonInfo = lessonInfo;
+    this.ui = ui;
   }
 
   render() {
     return this.el("div", { className: "pack-detail", style: { "--pack-color": this.pack.color } }, [
       this.renderTitle(),
       this.el("p", { text: this.pack.description }),
-      this.el("h4", { text: "What we cover" }),
+      this.el("h4", { text: this.ui.whatWeCover }),
       this.el("ul", { className: "pack-detail__list" },
         this.pack.details.map((item) => this.el("li", { text: item }))
       ),
       this.el("p", { className: "muted", text: `${this.lessonInfo.priceText} ${this.lessonInfo.bookingText}` }),
-      this.el("a", { className: "btn", text: "Book a lesson", attrs: { href: "#contacts", "data-close-modal": "" } }),
+      this.el("a", { className: "btn", text: this.ui.bookLesson, attrs: { href: "#contacts", "data-close-modal": "" } }),
     ]);
   }
 

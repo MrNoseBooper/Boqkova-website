@@ -1,7 +1,8 @@
-/** A length of time in minutes, formatted for display. */
+/** A length of time in minutes, formatted for display in the site's language. */
 class Duration {
-  constructor(minutes) {
+  constructor(minutes, units = { hour: "hr", hours: "hrs", minute: "min" }) {
     this.minutes = minutes;
+    this.units = units;
   }
 
   get isKnown() {
@@ -12,8 +13,8 @@ class Duration {
     if (!this.isKnown) return "";
     if (this.minutes % 60 === 0) {
       const hours = this.minutes / 60;
-      return `${hours} hr${hours > 1 ? "s" : ""}`;
+      return `${hours} ${hours > 1 ? this.units.hours : this.units.hour}`;
     }
-    return `${this.minutes} min`;
+    return `${this.minutes} ${this.units.minute}`;
   }
 }

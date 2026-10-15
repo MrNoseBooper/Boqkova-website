@@ -3,47 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Online Russian lessons with Boqkova Teach.">
-    <title>Boqkova Teach</title>
+    <meta name="description" content="Online Russian and English lessons with Boqkova Teach. Онлайн-уроки русского и английского.">
+    <title>Boqkova Teach · Russian &amp; English lessons</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=Golos+Text:wght@800..900&family=DM+Sans:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=Golos+Text:wght@400..900&family=DM+Sans:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="css/styles.css">
 
-    <!--
-        Scripts load in this order on purpose: content -> models -> components -> app.
-        A class must be loaded before any class that extends or uses it.
-    -->
-    <script defer src="js/data/site-data.js"></script>
+    <!-- Intro page: visitors choose which language website to open. -->
+    <script defer src="js/data/intro-data.js"></script>
 
-    <script defer src="js/models/Price.js"></script>
-    <script defer src="js/models/Duration.js"></script>
-    <script defer src="js/models/Offering.js"></script>
-    <script defer src="js/models/Pack.js"></script>
-    <script defer src="js/models/Course.js"></script>
-    <script defer src="js/models/LessonInfo.js"></script>
-    <script defer src="js/models/SocialLink.js"></script>
+    <script defer src="js/models/LanguageChoice.js"></script>
 
     <script defer src="js/components/Component.js"></script>
-    <script defer src="js/components/Section.js"></script>
-    <script defer src="js/components/Header.js"></script>
-    <script defer src="js/components/HeroSection.js"></script>
     <script defer src="js/components/Marquee.js"></script>
-    <script defer src="js/components/PackCard.js"></script>
-    <script defer src="js/components/PackDetail.js"></script>
-    <script defer src="js/components/PackSection.js"></script>
-    <script defer src="js/components/LessonSection.js"></script>
-    <script defer src="js/components/CourseCard.js"></script>
-    <script defer src="js/components/CourseSection.js"></script>
-    <script defer src="js/components/ContactSection.js"></script>
     <script defer src="js/components/Footer.js"></script>
-    <script defer src="js/components/Modal.js"></script>
+    <script defer src="js/components/ChoiceButton.js"></script>
+    <script defer src="js/components/IntroBanner.js"></script>
 
-    <script defer src="js/App.js"></script>
-    <script defer src="js/main.js"></script>
+    <script defer src="js/IntroApp.js"></script>
+    <script defer src="js/intro-main.js"></script>
 </head>
-<body>
+<body class="page-intro">
     <div id="app"></div>
-    <noscript>Please enable JavaScript to view this website.</noscript>
+    <noscript>
+        <a href="learn-russian.html">I want to learn Russian</a> ·
+        <a href="learn-english.html">Я хочу учить английский</a>
+    </noscript>
 </body>
 </html>

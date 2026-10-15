@@ -1,5 +1,10 @@
 /** Pop-up window (native <dialog>) that can show any Component. */
 class Modal extends Component {
+  constructor(closeLabel = "Close") {
+    super();
+    this.closeLabel = closeLabel;
+  }
+
   render() {
     this.body = this.el("div", { className: "modal__body" });
 
@@ -16,7 +21,7 @@ class Modal extends Component {
         this.el("button", {
           className: "modal__close",
           text: "×",
-          attrs: { type: "button", "aria-label": "Close" },
+          attrs: { type: "button", "aria-label": this.closeLabel },
           on: { click: () => this.close() },
         }),
         this.body,

@@ -1,18 +1,20 @@
-/** Turns SITE_DATA into model objects and assembles the page from components. */
+/** Turns SITE_DATA into model objects and assembles a language site from components. */
 class App {
   constructor(data) {
     this.data = data;
-    this.packs = data.packs.items.map((item) => new Pack(item));
-    this.courses = data.courses.items.map((item) => new Course(item));
-    this.lessonInfo = new LessonInfo(data.lessons);
-    this.socialLinks = data.contacts.links.map((item) => new SocialLink(item)).filter((link) => link.isAvailable);
+    const { ui, courses, lessons, contacts } = data;
+    this.packs = courses.packs.map((item) => new Pack(item, ui.packPrefix));
+    this.courses = courses.items.map((item) => new Course(item, ui.units));
+    this.lessonInfo = new LessonInfo(lessons, ui.units);
+    this.socialLinks = contacts.links.map((item) => new SocialLink(item)).filter((link) => link.isAvailable);
   }
 
   start(root) {
-    const { site, nav, hero, marquee, packs, lessons, courses, contacts } = this.data;
-    document.title = site.name;
+    const { site, ui, nav, hero, marquee, lessons, courses, contacts } = this.data;
+    document.title = site.title || site.name;
+    document.documentElement.lang = site.lang || "en";
 
-    const modal = new Modal();
+    const modal = new Modal(ui.close);
     const main = document.createElement("main");
 
     new Header(site, nav).mount(root);
@@ -21,9 +23,17 @@ class App {
     [
       new HeroSection(hero, site.name, this.lessonInfo),
       new Marquee(marquee),
-      new PackSection(packs.heading, this.packs, this.lessonInfo, modal),
-      new LessonSection(lessons.heading, this.lessonInfo),
-      new CourseSection(courses.heading, this.courses),
+      new CourseSection({
+        heading: courses.heading,
+        packsHeading: courses.packsHeading,
+        extraHeading: courses.extraHeading,
+        packs: this.packs,
+        courses: this.courses,
+        lessonInfo: this.lessonInfo,
+        ui,
+        modal,
+      }),
+      new LessonSection(lessons.heading, this.lessonInfo, ui),
       new ContactSection(contacts.heading, contacts.text, this.socialLinks),
     ].forEach((section) => section.mount(main));
 

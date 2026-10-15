@@ -1,28 +1,45 @@
 /*
  * ============================================================
- *  SITE CONTENT — edit this file to change what the website says.
- *  You do not need to touch any other JavaScript file.
+ *  CONTENT FOR learn-russian.html (Russian lessons, written in English).
+ *  Edit this file to change what that website says.
  *  See README.md for a guide to every field.
  * ============================================================
  */
 const SITE_DATA = {
   site: {
     name: "Boqkova Teach",
+    title: "Boqkova Teach · learn Russian",
+    lang: "en", // language the page is written in
     footerText: "Boqkova Teach, no rights reserved, only russian lessons",
   },
 
-  // Menu links. "target" must match a section id: home, packs, lessons, courses, contacts
+  // Small words used on buttons and labels around the site.
+  ui: {
+    readMore: "Read More",
+    whatWeCover: "What we cover",
+    bookLesson: "Book a lesson",
+    bookNow: "Book Now",
+    notAvailable: "Not available",
+    ended: "Ended",
+    contactMe: "Contact me",
+    close: "Close",
+    packPrefix: "Pack: ", // shown before each pack name, e.g. "Pack: base"
+    units: { hour: "hr", hours: "hrs", minute: "min" },
+  },
+
+  // Menu links. "target" scrolls to a section: home, courses, lessons, contacts.
+  // "href" opens another page instead (here: back to the language chooser).
   nav: [
     { label: "Home", target: "home" },
     { label: "Courses", target: "courses" },
     { label: "Contacts", target: "contacts" },
+    { label: "EN ↔ RU", href: "index.html" },
   ],
 
   hero: {
     greeting: "yo",
     text: "You can check my prices and courses here. That's pretty much it<3",
-    // Put a photo in assets/images/ and write its path here, e.g. "assets/images/me.jpg".
-    // Leave empty ("") to show a letter avatar instead.
+    // Leave photo empty ("") to show a letter avatar instead.
     photo: "assets/images/teacher.jpg",
     photoAlt: "The teacher in an art gallery, pulling a face and making rock-on hands",
   },
@@ -30,13 +47,15 @@ const SITE_DATA = {
   // Words scrolling in the black ticker band under the greeting.
   marquee: ["online russian lessons", "RM70 / hr", "yandex telemost", "google meet", "dm to book"],
 
-  packs: {
-    heading: "the big four:",
-    items: [
+  courses: {
+    heading: "Courses",
+
+    packsHeading: "the big four:",
+    packs: [
       {
         name: "base",
         color: "#fe98c0",
-        image: "assets/images/packs/base.png",
+        image: "assets/images/packs/russian/base.png",
         summary: "The foundation: read, pronounce and say your first real sentences.",
         details: [
           "The Cyrillic alphabet and reading",
@@ -47,7 +66,7 @@ const SITE_DATA = {
       {
         name: "tourist",
         color: "#80eb3d",
-        image: "assets/images/packs/tourist.png",
+        image: "assets/images/packs/russian/tourist.png",
         summary: "Survival Russian for travelling: get around, order, ask and understand.",
         details: [
           "Directions, transport and hotels",
@@ -58,7 +77,7 @@ const SITE_DATA = {
       {
         name: "cases",
         color: "#3dd0eb",
-        image: "assets/images/packs/cases.png",
+        image: "assets/images/packs/russian/cases.png",
         summary: "All six Russian cases, explained clearly and practised until they click.",
         details: [
           "What each case is for",
@@ -69,7 +88,7 @@ const SITE_DATA = {
       {
         name: "grammar",
         color: "#eb583d",
-        image: "assets/images/packs/grammar.png",
+        image: "assets/images/packs/russian/grammar.png",
         summary: "The rest of the grammar you need to speak correctly and confidently.",
         details: [
           "Verb conjugation and tenses",
@@ -78,18 +97,9 @@ const SITE_DATA = {
         ],
       },
     ],
-  },
 
-  lessons: {
-    heading: "About my lessons:",
-    platforms: ["Yandex Telemost", "Google Meet"],
-    price: { amount: 70, currency: "RM" },
-    durationMinutes: 60,
-    bookingText: "To book a lesson and check my schedule please DM me on any social media<3",
-  },
-
-  courses: {
-    heading: "Courses",
+    // Other classes shown under the packs. Use an empty list [] to hide this block.
+    extraHeading: "more classes:",
     items: [
       {
         title: "Introductory Lesson",
@@ -116,6 +126,17 @@ const SITE_DATA = {
         url: "",
       },
     ],
+  },
+
+  lessons: {
+    heading: "About my lessons:",
+    platforms: ["Yandex Telemost", "Google Meet"],
+    price: { amount: 70, currency: "RM" },
+    durationMinutes: 60,
+    // {platforms}, {price} and {minutes} are filled in automatically.
+    platformText: "I provide online lessons using various Russian meeting websites ({platforms}).",
+    priceText: "The lessons cost {price} for {minutes} minutes.",
+    bookingText: "To book a lesson and check my schedule please DM me on any social media<3",
   },
 
   contacts: {

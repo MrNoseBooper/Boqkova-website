@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Online Russian lessons with Boqkova Teach.">
+    <title>Boqkova Teach · learn Russian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=Golos+Text:wght@400..900&family=DM+Sans:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- The only line that differs from learn-english.html: which content file to load. -->
+    <script defer src="js/data/russian-site.js"></script>
+
+    <!--
+        Shared code. Scripts load in this order on purpose: utils -> models -> components -> app.
+        A class must be loaded before any class that extends or uses it.
+    -->
+    <script defer src="js/utils/Template.js"></script>
+
+    <script defer src="js/models/Price.js"></script>
+    <script defer src="js/models/Duration.js"></script>
+    <script defer src="js/models/Offering.js"></script>
+    <script defer src="js/models/Pack.js"></script>
+    <script defer src="js/models/Course.js"></script>
+    <script defer src="js/models/LessonInfo.js"></script>
+    <script defer src="js/models/SocialLink.js"></script>
+
+    <script defer src="js/components/Component.js"></script>
+    <script defer src="js/components/Section.js"></script>
+    <script defer src="js/components/Header.js"></script>
+    <script defer src="js/components/HeroSection.js"></script>
+    <script defer src="js/components/Marquee.js"></script>
+    <script defer src="js/components/PackCard.js"></script>
+    <script defer src="js/components/PackDetail.js"></script>
+    <script defer src="js/components/CourseCard.js"></script>
+    <script defer src="js/components/CourseSection.js"></script>
+    <script defer src="js/components/LessonSection.js"></script>
+    <script defer src="js/components/ContactSection.js"></script>
+    <script defer src="js/components/Footer.js"></script>
+    <script defer src="js/components/Modal.js"></script>
+
+    <script defer src="js/App.js"></script>
+    <script defer src="js/main.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <noscript>Please enable JavaScript to view this website.</noscript>
+</body>
+</html>
