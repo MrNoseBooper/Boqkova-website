@@ -46,7 +46,6 @@ Boqkova-website/
     │   ├── Duration.js         #   Minutes, formatted as "1 hr" / "1 ч"
     │   ├── Offering.js         #   Abstract base class for things you can sign up for
     │   ├── Pack.js             #   extends Offering: one of "the big four" packs
-    │   ├── Course.js           #   extends Offering: a bookable class with a price
     │   ├── LessonInfo.js       #   Platforms, lesson price, booking text
     │   ├── SocialLink.js       #   A contact link (hidden if it has no URL)
     │   └── LanguageChoice.js   #   One button on the intro page
@@ -56,10 +55,9 @@ Boqkova-website/
     │   ├── Header.js           #   Site name + menu (+ EN ↔ RU switch)
     │   ├── HeroSection.js      #   "yo" greeting + photo + price sticker
     │   ├── Marquee.js          #   Scrolling black ticker band
-    │   ├── CourseSection.js    #   Courses: the big four packs + other classes
+    │   ├── CourseSection.js    #   Courses: the big four packs
     │   ├── PackCard.js         #   One pack card
     │   ├── PackDetail.js       #   Pack details shown in the pop-up
-    │   ├── CourseCard.js       #   One class card
     │   ├── LessonSection.js    #   "About my lessons"
     │   ├── ContactSection.js   #   Social media links
     │   ├── Footer.js
@@ -108,9 +106,6 @@ ui: {
   readMore: "Read More",        // button on each pack
   whatWeCover: "What we cover", // heading in the pop-up
   bookLesson: "Book a lesson",  // button in the pop-up
-  bookNow: "Book Now",          // button on each class
-  notAvailable: "Not available",
-  ended: "Ended",               // badge on finished classes
   contactMe: "Contact me",
   close: "Close",               // pop-up close button (read by screen readers)
   packPrefix: "Pack: ",         // put before each pack name
@@ -158,7 +153,7 @@ The ticker does **not** update itself when the price changes, so remember to edi
 
 ### Courses: the big four packs
 
-The Courses section shows the four packs first, then any other classes. Each pack is one `{ ... }` block in `courses.packs`. To add a pack, copy a whole block. To remove one, delete its block.
+The Courses section shows the packs. Each pack is one `{ ... }` block in `courses.packs`. To add a pack, copy a whole block. To remove one, delete its block.
 
 ```js
 courses: {
@@ -177,30 +172,12 @@ courses: {
     },
     ...
   ],
+},
 ```
 
 To change a pack picture, replace the file in `assets/images/packs/russian/` or `.../english/` (keep the same name), or point `image` at a new file. Use a 16:9 image, such as 1920×1080. The picture appears on the card and at the top of the "Read More" pop-up.
 
 **Making a new banner:** open [`tools/banner-maker.html`](tools/banner-maker.html) in your browser. Type the word, pick the colour and click **Download PNG**, then move the file into the right `packs/` folder. For a long name, type `|` where the second line should start, e.g. `Grammar|glow up`. The tool uses the same font, size and layout as the existing banners, so new packs will match.
-
-### Courses: other classes
-
-Shown under the packs, under `extraHeading`. The English-learning site has none (`items: []`), so this block is hidden there.
-
-```js
-  extraHeading: "more classes:",
-  items: [
-    {
-      title: "Introductory Lesson",
-      tagline: "Start Speaking Russian Confidently",
-      price: { amount: 30, currency: "RM" },
-      durationMinutes: 60,          // null hides the duration
-      status: "open",               // "open" shows the booking button; "ended" greys the card out
-      url: "",                      // booking link; "" makes the button scroll to Contacts
-    },
-  ],
-},
-```
 
 ### Lesson price and platforms
 
@@ -290,14 +267,14 @@ The pack colours aren't set here. They come from each pack's `color` in the data
 The JavaScript follows a simple object-oriented design:
 
 - **One codebase, two sites.** `learn-russian.html` and `learn-english.html` load identical scripts and differ only in their content file. Each content file defines `SITE_DATA`, and `main.js` runs `new App(SITE_DATA)`. Every visible word, including button labels (`ui`) and sentence templates, comes from the data, so the classes are language-neutral.
-- **Data → Models → Components.** `App` wraps the plain data in model classes (`Pack`, `Course`, `LessonInfo`, `SocialLink`). Components receive those models and render them. `IntroApp` does the same for the intro page with `LanguageChoice`.
+- **Data → Models → Components.** `App` wraps the plain data in model classes (`Pack`, `LessonInfo`, `SocialLink`). Components receive those models and render them. `IntroApp` does the same for the intro page with `LanguageChoice`.
 - **Inheritance.**
-  - `Pack` and `Course` extend the abstract `Offering`.
+  - `Pack` extends the abstract `Offering`, a base for anything students sign up for, so new kinds of offering can share it.
   - Every UI piece extends `Component`. Page sections extend `Section`, which supplies the `<section>` wrapper and heading (a template method) and calls each subclass's `renderContent()`.
 - **Encapsulation.**
-  - Display logic lives on the models: `Price#toString()`, `Duration#toString()`, `LessonInfo#priceText`, `Course#isOpen` and `SocialLink#isAvailable`. Components never format values themselves.
+  - Display logic lives on the models: `Price#toString()`, `Duration#toString()`, `LessonInfo#priceText`, `Pack#hasImage` and `SocialLink#isAvailable`. Components never format values themselves.
   - The `Component#el()` helper builds DOM nodes with `textContent`, never `innerHTML`, so any text in the data files is displayed safely.
-- **Composition.** `CourseSection` creates `PackCard`s and `CourseCard`s and opens a shared `Modal`, which can display any `Component`. Here it shows a `PackDetail`. The intro page reuses `Marquee` and `Footer`.
+- **Composition.** `CourseSection` creates `PackCard`s and opens a shared `Modal`, which can display any `Component`. Here it shows a `PackDetail`. The intro page reuses `Marquee` and `Footer`.
 
 **Adding a new section:**
 1. Create `js/components/MySection.js` with `class MySection extends Section { renderContent() { return [...]; } }`.

@@ -4,7 +4,6 @@ class App {
     this.data = data;
     const { ui, courses, lessons, contacts } = data;
     this.packs = courses.packs.map((item) => new Pack(item, ui.packPrefix));
-    this.courses = courses.items.map((item) => new Course(item, ui.units));
     this.lessonInfo = new LessonInfo(lessons, ui.units);
     this.socialLinks = contacts.links.map((item) => new SocialLink(item)).filter((link) => link.isAvailable);
   }
@@ -26,9 +25,7 @@ class App {
       new CourseSection({
         heading: courses.heading,
         packsHeading: courses.packsHeading,
-        extraHeading: courses.extraHeading,
         packs: this.packs,
-        courses: this.courses,
         lessonInfo: this.lessonInfo,
         ui,
         modal,

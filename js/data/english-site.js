@@ -18,9 +18,6 @@ const SITE_DATA = {
     readMore: "Подробнее",
     whatWeCover: "Что проходим",
     bookLesson: "Записаться",
-    bookNow: "Записаться",
-    notAvailable: "Недоступно",
-    ended: "Завершён",
     contactMe: "Написать мне",
     close: "Закрыть",
     packPrefix: "Pack: ", // shown before each pack name, e.g. "Pack: tourist"
@@ -96,10 +93,6 @@ const SITE_DATA = {
         ],
       },
     ],
-
-    // Other classes shown under the packs. Empty list = this block is hidden.
-    extraHeading: "",
-    items: [],
   },
 
   lessons: {

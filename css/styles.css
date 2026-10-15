@@ -117,17 +117,6 @@ a {
   box-shadow: 0 0 0 var(--ink);
 }
 
-.btn--disabled,
-.btn--disabled:hover,
-.btn--disabled:active {
-  background: transparent;
-  color: var(--muted);
-  border-style: dashed;
-  box-shadow: none;
-  transform: none;
-  cursor: not-allowed;
-}
-
 /* ---------- Header ---------- */
 .header {
   position: sticky;
@@ -445,83 +434,6 @@ a {
   font-weight: 700;
 }
 
-/* ---------- Courses ---------- */
-.course-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 28px;
-}
-
-.course-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 28px;
-  border: var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--shadow);
-}
-
-.course-card--ended {
-  background: repeating-linear-gradient(-45deg, var(--surface) 0 14px, #f5eef1 14px 28px);
-  box-shadow: none;
-  border-style: dashed;
-}
-
-.course-card__title {
-  margin: 0 0 6px;
-  padding-right: 64px;
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-}
-
-.course-card__tagline {
-  flex: 1;
-  margin: 0 0 18px;
-  color: var(--muted);
-  font-weight: 500;
-}
-
-.course-card__meta {
-  align-self: flex-start;
-  margin: 0 0 20px;
-  padding: 2px 12px;
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  background: var(--pink);
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 800;
-}
-
-.course-card--ended .course-card__meta {
-  background: transparent;
-}
-
-.course-card .btn {
-  align-self: flex-start;
-}
-
-.badge {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  padding: 2px 12px;
-  border: 2px solid var(--ink);
-  border-radius: 999px;
-  background: var(--ink);
-  color: var(--bg);
-  font-size: 0.8rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  transform: rotate(6deg);
-}
-
 /* ---------- Contacts ---------- */
 .contact-list {
   display: grid;
@@ -717,10 +629,6 @@ a {
   letter-spacing: -0.03em;
 }
 
-.pack-grid + .section__subheading,
-.pack-grid + .course-grid {
-  margin-top: 64px;
-}
 
 /* ---------- Language switch in the menu ---------- */
 .nav__link--switch {

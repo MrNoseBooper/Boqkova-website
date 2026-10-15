@@ -18,9 +18,6 @@ const SITE_DATA = {
     readMore: "Read More",
     whatWeCover: "What we cover",
     bookLesson: "Book a lesson",
-    bookNow: "Book Now",
-    notAvailable: "Not available",
-    ended: "Ended",
     contactMe: "Contact me",
     close: "Close",
     packPrefix: "Pack: ", // shown before each pack name, e.g. "Pack: base"
@@ -95,35 +92,6 @@ const SITE_DATA = {
           "Perfective and imperfective aspect",
           "Verbs of motion",
         ],
-      },
-    ],
-
-    // Other classes shown under the packs. Use an empty list [] to hide this block.
-    extraHeading: "more classes:",
-    items: [
-      {
-        title: "Introductory Lesson",
-        tagline: "Start Speaking Russian Confidently",
-        price: { amount: 30, currency: "RM" },
-        durationMinutes: 60,
-        status: "open", // "open" or "ended"
-        url: "", // booking link; leave empty to send people to Contacts
-      },
-      {
-        title: "Russian Basics Course",
-        tagline: "Speak Russian with Ease: Level A1",
-        price: { amount: 200, currency: "RM" },
-        durationMinutes: null,
-        status: "ended",
-        url: "",
-      },
-      {
-        title: "Interactive Russian Class",
-        tagline: "Engage in Dynamic Learning Sessions",
-        price: { amount: 25, currency: "RM" },
-        durationMinutes: null,
-        status: "open",
-        url: "",
       },
     ],
   },

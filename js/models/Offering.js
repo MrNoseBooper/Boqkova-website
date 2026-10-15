@@ -2,7 +2,7 @@
 class Offering {
   constructor({ title, description = "" }) {
     if (new.target === Offering) {
-      throw new Error("Offering is abstract; use Pack or Course.");
+      throw new Error("Offering is abstract; use a subclass such as Pack.");
     }
     this.title = title;
     this.description = description;
