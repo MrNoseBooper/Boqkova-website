@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pack Banner Maker</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@900&family=DM+Sans:wght@400;700&display=swap">
+    <style>
+        body { margin: 0; padding: 24px 16px; background: #fffaf7; color: #0d0d0d; font-family: "DM Sans", system-ui, sans-serif; }
+        main { max-width: 900px; margin: 0 auto; }
+        h1 { margin-top: 0; }
+        form { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-bottom: 20px; }
+        label { display: flex; flex-direction: column; gap: 4px; font-weight: 700; }
+        input[type="text"] { padding: 8px 12px; border: 3px solid #0d0d0d; border-radius: 10px; font: inherit; }
+        input[type="color"] { width: 64px; height: 42px; border: 3px solid #0d0d0d; border-radius: 10px; padding: 2px; }
+        button { padding: 10px 20px; border: 3px solid #0d0d0d; border-radius: 999px; background: #fe98c0; font: inherit; font-weight: 700; cursor: pointer; box-shadow: 4px 4px 0 #0d0d0d; }
+        canvas { width: 100%; height: auto; border: 3px solid #0d0d0d; border-radius: 12px; }
+    </style>
+</head>
+<body>
+<main>
+    <h1>Pack banner maker</h1>
+    <p>Makes a 1920×1080 banner in the same style as the pack images (Golos Text 900, black text). Type the word, pick the colour, then download and save it into <code>assets/images/packs/</code>.</p>
+    <form id="form">
+        <label>Text <input type="text" id="text" value="База"></label>
+        <label>Colour <input type="color" id="color" value="#fe98c0"></label>
+        <button type="button" id="download">Download PNG</button>
+    </form>
+    <canvas id="canvas" width="1920" height="1080"></canvas>
+</main>
+<script>
+    class BannerMaker {
+        constructor(canvas) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext("2d");
+            this.maxSize = 440;   // largest font size in px
+            this.maxWidth = 1620; // text never gets wider than this
+            this.left = 150;
+        }
+
+        draw(text, color) {
+            const { ctx, canvas } = this;
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            let size = this.maxSize;
+            do {
+                ctx.font = `900 ${size}px "Golos Text"`;
+                ctx.letterSpacing = `${-0.05 * size}px`;
+                size -= 5;
+            } while (ctx.measureText(text).width > this.maxWidth && size > 100);
+
+            ctx.fillStyle = "#0d0d0d";
+            ctx.textBaseline = "middle";
+            ctx.fillText(text, this.left, canvas.height * 0.47);
+        }
+
+        download(fileName) {
+            const link = document.createElement("a");
+            link.download = fileName;
+            link.href = this.canvas.toDataURL("image/png");
+            link.click();
+        }
+    }
+
+    const maker = new BannerMaker(document.getElementById("canvas"));
+    const text = document.getElementById("text");
+    const color = document.getElementById("color");
+    const redraw = () => maker.draw(text.value, color.value);
+
+    text.addEventListener("input", redraw);
+    color.addEventListener("input", redraw);
+    document.getElementById("download").addEventListener("click", () => maker.download("banner.png"));
+    document.fonts.load('900 100px "Golos Text"', "База").then(redraw);
+</script>
+</body>
+</html>
