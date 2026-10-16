@@ -1,14 +1,15 @@
 /** The big banner on the intro page: photo, greeting and the language buttons. */
 class IntroBanner extends Component {
-  constructor(intro, choices) {
+  constructor(intro, choices, transition) {
     super();
     this.intro = intro;
     this.choices = choices;
+    this.transition = transition;
   }
 
   render() {
     const choiceList = this.el("div", { className: "intro-banner__choices" });
-    this.choices.forEach((choice) => new ChoiceButton(choice).mount(choiceList));
+    this.choices.forEach((choice) => new ChoiceButton(choice, this.transition).mount(choiceList));
 
     return this.el("section", { className: "intro-banner" }, [
       this.el("div", { className: "hero__media intro-banner__media" }, [

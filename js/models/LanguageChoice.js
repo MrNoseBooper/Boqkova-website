@@ -1,7 +1,8 @@
 /** One button on the intro page that opens a language version of the site. */
 class LanguageChoice {
-  constructor({ label, sublabel = "", tag, href, lang, color }) {
+  constructor({ label, sublabel = "", tag, href, lang, color, transition = "" }) {
     this.label = label;
+    this.transition = transition;
     this.sublabel = sublabel;
     this.tag = tag;
     this.href = href;

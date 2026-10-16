@@ -62,6 +62,7 @@ Boqkova-website/
     │   ├── ContactSection.js   #   Social media links
     │   ├── Footer.js
     │   ├── Modal.js            #   Pop-up window used by "Read More"
+    │   ├── PageTransition.js   #   Colour-stripe wipe between pages
     │   ├── IntroBanner.js      #   Intro page: the big banner
     │   └── ChoiceButton.js     #   Intro page: one language button
     ├── App.js                  # Builds a language site from SITE_DATA
@@ -115,16 +116,20 @@ ui: {
 
 ### Menu
 
-`target` scrolls to a section on the same page: `home`, `courses`, `lessons` or `contacts`. `href` opens another page instead. The green **EN ↔ RU** button uses it to go back to the intro page.
+`target` scrolls to a section on the same page: `home`, `courses`, `lessons` or `contacts`. `href` opens another page instead.
+
+The green **EN ↔ RU** button uses `href` to switch straight to the other language site. Each site points at the other one. The switch also keeps your place: if you're reading "About my lessons", you land on the same section of the other site. This works because both sites use the same section names.
 
 ```js
 nav: [
   { label: "Home", target: "home" },
   { label: "Courses", target: "courses" },
   { label: "Contacts", target: "contacts" },
-  { label: "EN ↔ RU", href: "index.html" },
+  { label: "EN ↔ RU", href: "learn-english.html", transition: "погнали ✦" }, // in english-site.js: "learn-russian.html"
 ],
 ```
+
+**Page wipe.** Switching sites plays a transition. Pink, green, blue and black stripes sweep across the screen, `transition` (here "погнали ✦") pops up in big pink letters, and the new page opens underneath before the stripes sweep away. The intro page's two buttons do the same, each with its own `transition` text in `intro-data.js`. Visitors whose device is set to reduce motion skip the animation and go straight to the page.
 
 ### Greeting and photo
 
@@ -225,6 +230,7 @@ choices: [
     label: "I want to learn Russian",        // big text
     sublabel: "Russian lessons, explained in English",
     href: "learn-russian.html",              // page it opens
+    transition: "let's go ✦",                // text on the page wipe
     lang: "en",                              // language of the label
     color: "#fe98c0",                        // button colour
   },
@@ -275,6 +281,7 @@ The JavaScript follows a simple object-oriented design:
   - Display logic lives on the models: `Price#toString()`, `Duration#toString()`, `LessonInfo#priceText`, `Pack#hasImage` and `SocialLink#isAvailable`. Components never format values themselves.
   - The `Component#el()` helper builds DOM nodes with `textContent`, never `innerHTML`, so any text in the data files is displayed safely.
 - **Composition.** `CourseSection` creates `PackCard`s and opens a shared `Modal`, which can display any `Component`. Here it shows a `PackDetail`. The intro page reuses `Marquee` and `Footer`.
+- **Page transition.** Every page mounts one `PageTransition` first. `leave(href, text)` sweeps the stripes in, stores the text in `sessionStorage` and opens the next page. On that page, `enter()` starts covered and sweeps the stripes away. The animation itself is CSS, driven by the overlay's `data-state` (`cover` → `covered` → `reveal`).
 
 **Adding a new section:**
 1. Create `js/components/MySection.js` with `class MySection extends Section { renderContent() { return [...]; } }`.

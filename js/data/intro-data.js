@@ -19,6 +19,7 @@ const INTRO_DATA = {
       label: "I want to learn Russian",
       sublabel: "Russian lessons, explained in English",
       href: "learn-russian.html",
+      transition: "let's go ✦",              // text on the page wipe
       lang: "en",
       color: "#fe98c0",
     },
@@ -27,6 +28,7 @@ const INTRO_DATA = {
       label: "Я хочу учить английский",
       sublabel: "Уроки английского на русском",
       href: "learn-english.html",
+      transition: "погнали ✦",
       lang: "ru",
       color: "#80eb3d",
     },

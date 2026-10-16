@@ -774,3 +774,82 @@ a {
     width: 210px;
   }
 }
+
+/* ---------- Page transition (stripe wipe between pages) ---------- */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.page-transition[data-state] {
+  pointer-events: auto; /* block clicks while the wipe runs */
+}
+
+.page-transition__panel {
+  position: absolute;
+  inset: 0 -25%;
+  display: grid;
+  place-items: center;
+  transform: translateX(-130%) skewX(-12deg);
+  transition: none;
+}
+
+.page-transition__panel:nth-child(1) { background: var(--pink); }
+.page-transition__panel:nth-child(2) { background: var(--green); }
+.page-transition__panel:nth-child(3) { background: var(--blue); }
+.page-transition__panel:nth-child(4) { background: var(--ink); }
+
+/* Sweep in from the left, one stripe after another. */
+.page-transition[data-state="cover"] .page-transition__panel {
+  transform: translateX(0) skewX(-12deg);
+  transition: transform 0.52s cubic-bezier(0.77, 0, 0.18, 1) calc(var(--i) * 80ms);
+}
+
+/* The next page starts fully covered... */
+.page-transition[data-state="covered"] .page-transition__panel {
+  transform: translateX(0) skewX(-12deg);
+}
+
+/* ...then the stripes keep going off to the right, top stripe first. */
+.page-transition[data-state="reveal"] .page-transition__panel {
+  transform: translateX(130%) skewX(-12deg);
+  transition: transform 0.52s cubic-bezier(0.77, 0, 0.18, 1) calc(var(--rev) * 80ms);
+}
+
+.page-transition__label {
+  padding: 0 24px;
+  color: var(--pink);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 12vw, 9rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  white-space: nowrap;
+  /* Undo the stripe's skew so the text stands upright, then tilt it a little. */
+  transform: skewX(12deg) rotate(-4deg) scale(0.7);
+  opacity: 0;
+}
+
+.page-transition[data-state="cover"] .page-transition__label {
+  animation: transition-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+
+.page-transition[data-state="covered"] .page-transition__label,
+.page-transition[data-state="reveal"] .page-transition__label {
+  transform: skewX(12deg) rotate(-4deg) scale(1);
+  opacity: 1;
+}
+
+@keyframes transition-pop {
+  from {
+    transform: skewX(12deg) rotate(-12deg) scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: skewX(12deg) rotate(-4deg) scale(1);
+    opacity: 1;
+  }
+}

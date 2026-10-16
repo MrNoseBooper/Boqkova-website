@@ -25,12 +25,12 @@ const SITE_DATA = {
   },
 
   // Menu links. "target" scrolls to a section: home, courses, lessons, contacts.
-  // "href" opens another page instead (here: back to the language chooser).
+  // "href" opens another page instead (here: the other language version of the site).
   nav: [
     { label: "Home", target: "home" },
     { label: "Courses", target: "courses" },
     { label: "Contacts", target: "contacts" },
-    { label: "EN ↔ RU", href: "index.html" },
+    { label: "EN ↔ RU", href: "learn-english.html", transition: "погнали ✦" }, // transition = text on the page wipe
   ],
 
   hero: {

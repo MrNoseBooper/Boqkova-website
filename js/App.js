@@ -13,10 +13,14 @@ class App {
     document.title = site.title || site.name;
     document.documentElement.lang = site.lang || "en";
 
+    // Mounted first so it can cover the screen before any content appears.
+    const transition = new PageTransition().mount(root);
+    transition.enter();
+
     const modal = new Modal(ui.close);
     const main = document.createElement("main");
 
-    new Header(site, nav).mount(root);
+    new Header(site, nav, transition).mount(root);
     root.appendChild(main);
 
     [
@@ -36,5 +40,12 @@ class App {
 
     new Footer(site).mount(root);
     modal.mount(root);
+    this.scrollToLinkedSection();
+  }
+
+  /** The page is built by script, so jump to a #section in the URL (e.g. after the language switch) once it exists. */
+  scrollToLinkedSection() {
+    const target = window.location.hash && document.getElementById(window.location.hash.slice(1));
+    if (target) target.scrollIntoView({ behavior: "instant" }); // no smooth-scroll animation on arrival
   }
 }
